@@ -2,8 +2,11 @@ const express = require('express')
 const app = express()
 const mongoose = require('mongoose')
 const TELEGRAM_BOT = require('node-telegram-bot-api')
-
 app.use(express.json())
+
+// model
+
+const User = require('./models/user')
 
 const PORT = 3000
 const MONGO_URI =
@@ -12,29 +15,30 @@ const TOKEN = '7326731390:AAGAPcJEJWMBlFUh1eJ62UTjwyFBvRn6wHY'
 
 const bot = new TELEGRAM_BOT(TOKEN, { polling: true })
 
-bot.on('message', (msg) => {
-  console.log(msg)
-})
+bot.on('message', async (msg) => {
+  const chatId = msg.from.id
+  const text = msg.text
 
-// {
-//   message_id: 3,
-//   from: {
-//     id: 2022679351,
-//     is_bot: false,
-//     first_name: 'Abdulaziz',
-//     username: 'abdulaziz704',
-//     language_code: 'en'
-//   },
-//   chat: {
-//     id: 2022679351,
-//     first_name: 'Abdulaziz',
-//     username: 'abdulaziz704',
-//     type: 'private'
-//   },
-//   date: 1721895930,
-//   text: '/start',
-//   entities: [ { offset: 0, length: 6, type: 'bot_command' } ]
-// }
+  if (text === '/start') {
+    const checkUser = await User.findOne({ chatId }).lean()
+    if (!checkUser) {
+      const newUser = new User({
+        name: msg.from.username,
+        chatId,
+        createdAt: new Date(),
+        action: 'start',
+      })
+      await newUser.save()
+    }
+
+    console.log('start bosdi')
+  } else {
+    bot.sendMessage(
+      chatId,
+      `Salom @${msg.from.username.toLowerCase()}, Texno-Magazin botiga xush kelibsiz`
+    )
+  }
+})
 
 async function dev() {
   try {
