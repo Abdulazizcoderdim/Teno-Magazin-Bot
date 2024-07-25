@@ -1,6 +1,6 @@
-const { Schema, model, Schema } = require('mongoose')
+const { Schema, model } = require('mongoose')
 
-const Schema = new Schema({
+const userSchema  = new Schema({
   name: String,
   chatId: Number,
   phone: String,
@@ -9,11 +9,14 @@ const Schema = new Schema({
     default: false,
   },
   action: String,
-  createdAt: Date,
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
   status: {
     type: Boolean,
     default: true,
   },
 })
 
-module.exports = model('User', Schema)
+module.exports = model('User', userSchema)
