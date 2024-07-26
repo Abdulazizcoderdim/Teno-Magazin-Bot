@@ -2,6 +2,8 @@ const { bot } = require('./bot')
 const { start, requestContact } = require('./helper/start')
 const User = require('../model/user')
 
+const { get_all_users } = require('./helper/users')
+
 bot.on('message', async (msg) => {
   const chatId = msg.from.id
   const text = msg.text
@@ -14,6 +16,9 @@ bot.on('message', async (msg) => {
   if (user) {
     if (user.action === 'request_contact') {
       requestContact(msg)
+    }
+    if (text === 'Foydalanuvchilar') {
+      get_all_users(msg)
     }
   }
 })
