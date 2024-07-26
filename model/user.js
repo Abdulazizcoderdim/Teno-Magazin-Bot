@@ -1,6 +1,6 @@
 const { Schema, model } = require('mongoose')
 
-const userSchema  = new Schema({
+const userSchema = new Schema({
   name: String,
   chatId: Number,
   phone: String,
@@ -9,13 +9,13 @@ const userSchema  = new Schema({
     default: false,
   },
   action: String,
-  createdAt: {
-    type: Date,
-    default: Date.now,
-  },
   status: {
     type: Boolean,
     default: true,
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now,
   },
 })
 

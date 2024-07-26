@@ -22,7 +22,7 @@ async function dev() {
       console.log(`Server STARTED https://localhost:${process.env.PORT}`)
     })
   } catch (error) {
-    console.log(error)
+    console.log("indexjs papka xato",error)
   }
 }
 
