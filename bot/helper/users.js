@@ -8,7 +8,6 @@ const get_all_users = async (msg) => {
 
   if (user.admin) {
     let users = await User.find().lean()
-    console.log(users)
     let list = ''
     users.forEach((user) => {
       list += `Name: ${user.name}, Date: ${user.createdAt.toLocaleString()}\n`

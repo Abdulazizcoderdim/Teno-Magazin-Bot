@@ -3,6 +3,7 @@ const { start, requestContact } = require('./helper/start')
 const User = require('../model/user')
 
 const { get_all_users } = require('./helper/users')
+const { get_all_categories } = require('./helper/category')
 
 bot.on('message', async (msg) => {
   const chatId = msg.from.id
@@ -14,11 +15,10 @@ bot.on('message', async (msg) => {
   }
 
   if (user) {
-    if (user.action === 'request_contact') {
-      requestContact(msg)
-    }
-    if (text === 'Foydalanuvchilar') {
-      get_all_users(msg)
-    }
+    if (user.action === 'request_contact') requestContact(msg)
+
+    if (text === 'Foydalanuvchilar') get_all_users(msg)
+
+    if (text === 'Katalog') get_all_categories(msg)
   }
 })
