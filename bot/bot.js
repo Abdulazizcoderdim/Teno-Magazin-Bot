@@ -11,3 +11,4 @@ module.exports = {
 }
 
 require('./message')
+require('./query')
