@@ -3,11 +3,13 @@ const User = require('../../model/user')
 const Category = require('../../model/category')
 const { adminKeyboard, userKeyboard } = require('../menu/keyboard')
 
-const get_all_categories = async (msg) => {
+const get_all_categories = async (msg, page = 1) => {
   const chatId = msg.from.id
   const user = await User.findOne({ chatId }).lean()
+  let limit = 5
+  let skip = (page - 1) * limit
 
-  const categories = await Category.find().lean()
+  const categories = await Category.find().skip(skip).limit(limit).lean()
 
   console.log(categories)
   let list = categories.map((category) => [
@@ -91,8 +93,15 @@ const new_category = async (msg) => {
   }
 }
 
+const pagination_category = async (chatId, action) => {
+  let user = await User.findOne({ chatId }).lean()
+
+  
+}
+
 module.exports = {
   get_all_categories,
   add_category,
   new_category,
+  pagination_category,
 }
