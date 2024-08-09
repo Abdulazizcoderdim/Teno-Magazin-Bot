@@ -12,7 +12,7 @@ bot.on('callback_query', async (query) => {
     add_category(chatId)
   }
 
-  if(data === 'next_category'){
+  if([ 'next_category','back_category'].includes(data)){
     pagination_category(chatId, data)
   }
 })

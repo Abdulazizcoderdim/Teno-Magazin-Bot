@@ -19,7 +19,7 @@ bot.on('message', async (msg) => {
 
     if (text === 'Foydalanuvchilar') get_all_users(msg)
 
-    if (text === 'Katalog') get_all_categories(msg)
+    if (text === 'Katalog') get_all_categories(chatId)
 
     if (user.action === 'add_category') new_category(msg)
   }
